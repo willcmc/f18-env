@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Include this file on your JSBSim standalone application command line in order to send 
+data to a running instance of FlightGear to command FlightGear to display
+visuals for your running script.
+-->
+
+<output name="localhost" type="FLIGHTGEAR" protocol="UDP" port="5000" rate="60" version="24">
+</output>
