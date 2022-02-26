@@ -1,20 +1,11 @@
-//
-// Academic License - for use in teaching, academic research, and meeting
-// course requirements at degree granting institutions only.  Not for
-// government, commercial, or other organizational use.
-// File: Atmosphere.h
-//
-// MATLAB Coder version            : 5.2
-// C/C++ source code generated on  : 26-Feb-2022 09:34:30
-//
-
 #ifndef ATMOSPHERE_H
 #define ATMOSPHERE_H
 
 // Include Files
-#include "rtwtypes.h"
+#include "../rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
+#include <bits/stdc++.h>
 
 // Function Declarations
 extern void Atmosphere(const double x[12], double *T_atm, double *p_atm,

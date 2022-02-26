@@ -1,16 +1,22 @@
 BUILD_DIR = build
-FDM_EXEC = $(BUILD_DIR)/fdm
-VIZ_EXEC = $(BUILD_DIR)/viz
+FDM_EXT = $(BUILD_DIR)/fdm
+VIZ_EXT = $(BUILD_DIR)/viz
 
-BUILD_DEPENDS = fdm/lib/Aerodata/AerodataF18.cpp fg/visualizer.cpp fg/UDPConnect.cpp
+VPATH = fdm/lib/Aerodata:fdm/lib/Atmosphere:fg:fdm
 
-all: build $(FDM_EXEC)
+BUILD_DEPENDS = $(BUILD_DIR)/AerodataF18.o $(BUILD_DIR)/Atmosphere.o $(BUILD_DIR)/visualizer.o $(BUILD_DIR)/UDPConnect.o
+
+all: build $(FDM_EXT)
 
 build:
 	mkdir -p $(BUILD_DIR)
+	
+$(BUILD_DIR)/%.o: %.cpp 
+	@echo 'Building file: $<'
+	@${CXX} -c -o "$@" "$<"
 
-$(FDM_EXEC): build $(BUILD_DEPENDS)
-	$(CXX) fdm/main.cpp $(BUILD_DEPENDS) -o $(FDM_EXEC)
+$(FDM_EXT): build $(BUILD_DIR)/main.o $(BUILD_DEPENDS)
+	$(CXX) $(BUILD_DIR)/main.o $(BUILD_DEPENDS) -o $(FDM_EXT)
 
 clean:
 	rm -rf $(BUILD_DIR)
