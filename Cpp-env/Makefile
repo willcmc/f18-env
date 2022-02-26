@@ -9,14 +9,17 @@ BUILD_DEPENDS = $(BUILD_DIR)/AerodataF18.o $(BUILD_DIR)/Atmosphere.o $(BUILD_DIR
 all: build $(FDM_EXT)
 
 build:
-	mkdir -p $(BUILD_DIR)
+	@echo 'Creating build directory.'
+	@mkdir -p $(BUILD_DIR)
 	
 $(BUILD_DIR)/%.o: %.cpp 
 	@echo 'Building file: $<'
 	@${CXX} -c -o "$@" "$<"
 
 $(FDM_EXT): build $(BUILD_DIR)/main.o $(BUILD_DEPENDS)
-	$(CXX) $(BUILD_DIR)/main.o $(BUILD_DEPENDS) -o $(FDM_EXT)
+	@echo 'Building and linking final files.'
+	@$(CXX) $(BUILD_DIR)/main.o $(BUILD_DEPENDS) -o $(FDM_EXT)
 
 clean:
-	rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR)
+	@echo 'Cleared build folder.'
