@@ -12,9 +12,9 @@
 #define AERODATAF18_H
 
 // Include Files
-#include "rtwtypes.h"
-#include <cstddef>
-#include <cstdlib>
+// #include "rtwtypes.h"
+// #include <cstddef>
+// #include <cstdlib>
 
 // Type Definitions
 class AerodataF18 {

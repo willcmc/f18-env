@@ -1,9 +1,7 @@
 // Include Files
 #include "main.h"
-#include "./lib/Aerodata/AerodataF18.h"
-#include <iostream>
 
-int main(int, char **)
+int main()
 {
   AerodataF18 Aero;
 
@@ -12,6 +10,8 @@ int main(int, char **)
   double Geom[17];
 
   Aero.Aerodata(Geom, ALPHA_BREAK, F18_Aerodata);
-  std::cout << Geom[1];
+    
+  Visualizer viz("127.0.0.1", 5000, "generic");
+  
   return 0;
 }
