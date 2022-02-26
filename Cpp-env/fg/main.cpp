@@ -55,31 +55,9 @@ void launch_fg(const std::string& aircraft, const std::string& rate,
     cmd << " --timeofday=morning";
     cmd << " --disable-sound &";
 
-    // std::cout << cmd.str();
-    system(cmd.str().c_str());
-    system("sleep 15");
+    system(cmd.str().c_str()); // Could be replaced by popen
+    system("sleep 15"); // Hopefully fg starts in 15 seconds
 }
-
-#pragma pack(push, 1)
-struct GenericPacket{
-    double throttle;
-    double aileron;
-    double elevator;
-    double rudder;
-    double lat;
-    double lon; // long is reserved :)
-    double alt;
-    double roll;
-    double pitch;
-    double hdg;
-    double p;
-    double q;
-    double r;
-    double beta;
-    double alpha;
-    double v;
-};
-#pragma pack(pop)
 
 
 int main()
@@ -96,12 +74,13 @@ int main()
     GenericPacket pkt;
     size_t pkt_len = sizeof(pkt);
 
-    for(int t = 0; t < 10; t++){
+    for(int t = 0; t < 100; t++){
         pkt.throttle = 0.0;
-        pkt.aileron  = 1.0;
+        pkt.aileronl = 1.0;
+        pkt.aileronr = t%2;
         pkt.elevator = 0.0;
         pkt.rudder   = 0.0;
-        pkt.alt      = 100;
+        pkt.alt      = 1000;
 
         udp_connect->send(&pkt, pkt_len);
         std::cout << t << '\n';

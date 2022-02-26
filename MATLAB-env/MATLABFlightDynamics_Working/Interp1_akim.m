@@ -17,7 +17,7 @@ function[COEFF18] = Interp1_akim(AV,FUN,ALFA,NOF,NOR)
     end
 
     if D == 1
-        warning('(AoA) beyond available data.', 1)
+        %warning('(AoA) beyond available data.', 1)
         COEFF18 = FUN(D);
         return
     end

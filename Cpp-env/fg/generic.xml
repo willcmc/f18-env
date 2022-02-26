@@ -17,19 +17,24 @@
                 <node>/controls/engines/current-engine/throttle</node>
             </chunk>
             <chunk>
-                <name>Aileron</name>
+                <name>AileronL</name>
                 <type>double</type>
-                <node>/controls/flight/aileron</node>
+                <node>/surface-positions/left-alieron-pos-norm</node>
+            </chunk>
+            <chunk>
+                <name>AileronR</name>
+                <type>double</type>
+                <node>/surface-positions/right-alieron-pos-norm</node>
             </chunk>
             <chunk>
                 <name>Elevator</name>
                 <type>double</type>
-                <node>/controls/flight/elevator</node>
+                <node>/surface-positions/elevator-pos-norm</node>
             </chunk>
             <chunk>
                 <name>Rudder</name>
                 <type>double</type>
-                <node>/controls/flight/rudder</node>
+                <node>/surface-positions/rudder-pos-norm</node>
             </chunk>
             <chunk>
                 <name>Latitude</name>

@@ -16,6 +16,28 @@
 #include <string>
 #include <array>
 
+#pragma pack(push, 1)
+struct GenericPacket{
+    double throttle;
+    double aileronl;
+    double aileronr;
+    double elevator;
+    double rudder;
+    double lat;
+    double lon; // long is reserved :)
+    double alt;
+    double roll;
+    double pitch;
+    double hdg;
+    double p;
+    double q;
+    double r;
+    double beta;
+    double alpha;
+    double v;
+};
+#pragma pack(pop)
+
 std::string exec(const char* cmd) {
     std::array<char, 128> buffer;
     std::string result;

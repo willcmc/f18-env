@@ -39,7 +39,7 @@
 F18_Geom_damaged = Geom;
 F18_Aerodata_damaged = F18_Aerodata;
 
-Ts = 0.5;
+Ts = 0.1;
 global damage;
 damage = 0;
 x = [200 2*pi/180 0 0 0 0 0 1.2*pi/180 0 0.1 0.1 1000]';
