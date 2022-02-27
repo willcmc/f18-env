@@ -11,28 +11,9 @@ Visualizer::Visualizer(std::string addr="127.0.0.1",
 
 int Visualizer::init(){
             // Launching FlightGear configured for UDP
-            this->launch_fg("f18", "60", this->addr, 
-                        std::to_string(this->port), 
-                        this->protocol);
-
-            UDPConnect *udp_connect;
-            udp_connect = new UDPConnect((char *) this->addr.c_str(), this->port);
-            
-            GenericPacket pkt;
-            size_t pkt_len = sizeof(pkt);
-
-            for(int t = 0; t < 10; t++){
-                pkt.throttle = 0.0;
-                pkt.aileronl = 0.0;
-                pkt.aileronr = 0.0;
-                pkt.elevator = 0.0;
-                pkt.rudder   = 0.0;
-                pkt.alt      = 1000;
-
-                udp_connect->send(&pkt, pkt_len);
-                std::cout << t << '\n';
-                system("sleep 0.01");
-            }
+            this->launch_fg("f18", "60", this->addr, std::to_string(this->port), this->protocol);
+            this->udp_connect = new UDPConnect((char *) this->addr.c_str(), this->port);
+            this->pkt_len = sizeof(this->pkt);
             return 0;
 }
 
@@ -87,3 +68,30 @@ void Visualizer::launch_fg(const std::string& aircraft, const std::string& rate,
             system(cmd.str().c_str()); // Could be replaced by popen
             system("sleep 15"); // Hopefully fg starts in 15 seconds
         }
+
+int Visualizer::send_fg(const double* x, const double* cntl){
+    this->pkt.v     = x[0];
+    this->pkt.alpha = x[1];
+    this->pkt.beta  = x[2];
+    this->pkt.p     = x[3];
+    this->pkt.q     = x[4];
+    this->pkt.r     = x[5];
+    this->pkt.roll  = x[6];
+    this->pkt.pitch = x[7];
+    this->pkt.hdg   = x[8];
+    this->pkt.lon   = x[9];
+    this->pkt.lat   = x[10];
+    this->pkt.alt   = x[11];
+
+    this->pkt.elevator = cntl[0];
+    // this->pkt.elevator = cntl[1];
+    this->pkt.aileronl = cntl[2];
+    this->pkt.aileronr = cntl[2]*-1;
+    this->pkt.rudder   = cntl[3];
+    this->pkt.throttle = cntl[4];
+    // this->pkt.elevator = cntl[5];
+
+    int ret = this->udp_connect->send(&this->pkt, this->pkt_len);
+    system("sleep 0.01");
+    return ret;
+}

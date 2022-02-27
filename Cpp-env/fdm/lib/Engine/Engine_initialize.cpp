@@ -24,9 +24,3 @@ void Engine_initialize()
   Engine_init();
   isInitialized_Engine = true;
 }
-
-//
-// File trailer for Engine_initialize.cpp
-//
-// [EOF]
-//

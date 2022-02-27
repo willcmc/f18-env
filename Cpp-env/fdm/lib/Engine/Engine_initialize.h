@@ -12,7 +12,7 @@
 #define ENGINE_INITIALIZE_H
 
 // Include Files
-#include "rtwtypes.h"
+#include "../rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -20,8 +20,4 @@
 extern void Engine_initialize();
 
 #endif
-//
-// File trailer for Engine_initialize.h
-//
-// [EOF]
-//
+

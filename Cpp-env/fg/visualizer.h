@@ -8,21 +8,6 @@
 #include <string.h>
 #include "UDPConnect.h"
 
-class Visualizer{
-    private:
-        std::string addr;  
-        std::string protocol;
-        int port;
-        
-        int init();
-
-        void launch_fg(const std::string& aircraft, const std::string& rate, 
-                        const std::string& server, const std::string& port, 
-                        const std::string& protocol);
-    public:
-        Visualizer(std::string addr, int port, std::string protocol);
-        std::string cmd_exec(const char* cmd);
-};
 
 #pragma pack(push, 1)
 struct GenericPacket{
@@ -45,5 +30,25 @@ struct GenericPacket{
     double v;
 };
 #pragma pack(pop)
+
+class Visualizer{
+    private:
+        std::string addr;  
+        std::string protocol;
+        int port;
+        UDPConnect* udp_connect;
+        GenericPacket pkt;
+        size_t pkt_len;
+        
+        int init();
+
+        void launch_fg(const std::string& aircraft, const std::string& rate, 
+                        const std::string& server, const std::string& port, 
+                        const std::string& protocol);
+    public:
+        Visualizer(std::string addr, int port, std::string protocol);
+        int send_fg(const double* x, const double* cntl);
+        std::string cmd_exec(const char* cmd);
+};
 
 #endif

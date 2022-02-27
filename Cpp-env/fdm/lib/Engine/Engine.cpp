@@ -18,16 +18,6 @@
 static double Eng_FBK[2];
 
 // Function Definitions
-//
-// Arguments    : double Time
-//                double Ts
-//                const double x[12]
-//                const double cntl[10]
-//                double Mach
-//                double g
-//                double Thrust[2]
-// Return Type  : void
-//
 void Engine(double Time, double Ts, const double x[12], const double cntl[10],
             double Mach, double g, double Thrust[2])
 {
@@ -142,7 +132,7 @@ void Engine(double Time, double Ts, const double x[12], const double cntl[10],
     ry = (cntl[4] + 0.31) * 100.0;
     //  Right Engine Throttle converted to PLA scale (31 - 131, >87 --> AB on)
     rx = (cntl[5] + 0.31) * 100.0;
-    //  Left  Engine Throttle converted to PLA scale
+    //  Left Engine Throttle converted to PLA scale
     //  Retreiving Feedback signal
     if (Time <= Ts) {
       //  Initialize Dynamic Throttle Variable and Difference in throttle
@@ -216,14 +206,9 @@ void Engine(double Time, double Ts, const double x[12], const double cntl[10],
 // Arguments    : void
 // Return Type  : void
 //
+
 void Engine_init()
 {
   Eng_FBK[0] = 0.0;
   Eng_FBK[1] = 0.0;
 }
-
-//
-// File trailer for Engine.cpp
-//
-// [EOF]
-//
