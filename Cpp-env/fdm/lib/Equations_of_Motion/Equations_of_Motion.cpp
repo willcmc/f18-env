@@ -13,7 +13,7 @@
 #include "Equations_of_Motion_data.h"
 #include "Equations_of_Motion_initialize.h"
 #include "interp1.h"
-#include "rt_nonfinite.h"
+#include "../Engine/rt_nonfinite.h"
 #include <cmath>
 
 // Function Definitions

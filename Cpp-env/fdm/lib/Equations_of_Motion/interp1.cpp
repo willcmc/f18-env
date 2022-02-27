@@ -209,10 +209,4 @@ double interp1(const double varargin_1[27], const double varargin_2[27],
   return Vq;
 }
 
-} // namespace coder
-
-//
-// File trailer for interp1.cpp
-//
-// [EOF]
-//
+}
