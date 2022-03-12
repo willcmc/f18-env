@@ -2,7 +2,7 @@
 #define VISUALIZER_H
 #pragma once
 
-#include <iostream>
+#include <bits/stdc++.h>
 #include <sstream>
 #include <memory>
 #include <string.h>

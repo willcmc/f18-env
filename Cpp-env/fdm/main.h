@@ -4,10 +4,15 @@
 
 // Include Files
 #include <math.h>
+#include <fstream>
+#include <iostream>
+#include <stdio.h>
 #include "./lib/Aerodata/AerodataF18.h"
 #include "./lib/Atmosphere/Atmosphere.h"
 #include "./lib/Engine/Engine.h"
 #include "./lib/Equations_of_Motion/Equations_of_Motion.h"
 #include "../fg/visualizer.h"
+
+
 
 #endif

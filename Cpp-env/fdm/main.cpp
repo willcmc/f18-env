@@ -2,9 +2,55 @@
 
 #include "main.h"
 
+// Controls
+  //0  Stabilator deflection Right
+  //1  Stabilator deflection Left
+  //2  Aileron deflection
+  //3  Rudder deflection
+  //4  Throttle Setting as % of Right Engine
+  //5  Throttle Setting as % of Left Engine
+  //6  Pitch Thrust Vectoring Nozzle deflection Right Engines
+  //7  Pitch Thrust Vectoring Nozzle deflection Left Engines
+  //8  Yaw Thrust Vectoring Nozzle deflection Right Engines
+  //9  Yaw Thrust Vectoring Nozzle deflection Left Engines
+
+
+
+// States
+  //0  Velocity
+  //1  Angle of Attack
+  //2  Angle of Side Slip
+  //3  Roll rate
+  //4  Pitch rate
+  //5  Yaw rate
+  //6  Roll angle
+  //7  Pitch angle
+  //8  Yaw angle
+  //9  X location from starting point
+  //10 Y location from starting point
+  //11 Altitude
+
+void next_state(double* x, double* dx, float Ts, int t){
+  // Print states
+  for (int i = 0; i <12; i++) 
+      std::cout << x[i] << "\n";
+    std::cout << "\n";
+
+  for(int i = 0; i<12; i++){
+    x[i] += Ts*dx[i];
+    if (std::isnan(x[i])){
+      std::cerr << "States out of bound after " << t << " timesteps (" << t*Ts << " seconds). Terminating." << "\n";
+      exit(-1);
+    }
+  }
+}
+
 int main()
 {
-  float Ts = 0.01;
+  float Ts = 0.001;
+
+  FILE* fp;
+  fp = fopen("states.txt", "w");
 
   AerodataF18 Aero;
 
@@ -24,11 +70,11 @@ int main()
   double Thrust[2] = {0, 0};
 
   // Initial states
-  double x[12] = {200, 2*M_PI/180, 0, 0, 0, 0, 0, 1.2*M_PI/180, 0, 0.1, 0.1, 1000};
+  double x[12] = {200, 0.075, 0, -5.3*0.00001, 0, 0.075, 0, 0, 0, 18.5, 0.1, 2000};
 
   // Initial control
-  float delta_e = 1.0;
-  double cntl[10] = {delta_e, delta_e, 0, 0, 1, 1, 0, 0, 0, 0};
+  float delta_e = -0.2;
+  double cntl[10] = {delta_e, delta_e, 0, 0, 5, 5, 0, 0, 0, 0};
 
   // Get aerodynamic data
   Aero.Aerodata(Geom, ALPHA_BREAK, F18_Aerodata);
@@ -40,27 +86,26 @@ int main()
   double MOMENTS[3];
 
   // Construct Visualizer object
-  // Visualizer viz("127.0.0.1", 5000, "generic");  
+  Visualizer viz("127.0.0.1", 5000, "generic");  
 
-  for (int t = 0; t < 5; t++){
+  for (int t = 0; t < 100000000; t++){
+    std::cout << "t=" << t*Ts << "\n";
     Atmosphere(x, &T_atm, &p_atm, &rho, &M, &g);
     Engine(t, Ts, x, cntl, M, g, Thrust);
 
     Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,
                       F18_Aerodata, g, cntl, dx, FORCES, MOMENTS, DCG);
 
-    for(int i = 0; i<12; i++){
-      x[i] += dx[i];
+    next_state(x, dx, Ts, t);
+    viz.send_fg(x, cntl);
+
+    fprintf(fp, "%f ", Ts*t);
+    for(int i=0; i<12; i++){
+      fprintf(fp, "%f ", x[i]);
     }
-
-    cntl[3] = -1;
-
-    for (int i = 12 - 1; i >= 0; i--) 
-      std::cout << x[i] << "\n";
-    std::cout << "\n";
-
-    // viz.send_fg(x, cntl);
+    fprintf(fp, "\n");
   }
-
+  
+  fclose(fp);
   return 0;
 }

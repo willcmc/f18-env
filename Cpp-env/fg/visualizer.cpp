@@ -79,8 +79,8 @@ int Visualizer::send_fg(const double* x, const double* cntl){
     this->pkt.roll  = x[6];
     this->pkt.pitch = x[7];
     this->pkt.hdg   = x[8];
-    this->pkt.lon   = x[9];
-    this->pkt.lat   = x[10];
+    this->pkt.lat   = x[9]/111139;
+    this->pkt.lon   = x[10]/111139;
     this->pkt.alt   = x[11];
 
     this->pkt.elevator = cntl[0];
@@ -92,6 +92,6 @@ int Visualizer::send_fg(const double* x, const double* cntl){
     // this->pkt.elevator = cntl[5];
 
     int ret = this->udp_connect->send(&this->pkt, this->pkt_len);
-    system("sleep 0.01");
+    // system("sleep 0.01");
     return ret;
 }
