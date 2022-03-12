@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+F-18 Hornet Canadian Air Force
+80th Anniversary
+Fabrice Kauffmann,  f-kauffmann@skynet.bet
+************************************************************************
+-->
+
+<PropertyList>
+
+ <sim>
+
+  <description>F-18 Hornet Canadian Royal Air Force (3D Cockpit)</description>
+  <author>Fabrice Kauffmann</author>
+  <status>Early production</status>
+
+  <tags>
+    <tag>fighter</tag>
+    <tag>1980s</tag>
+    <tag>1990s</tag>
+    <tag>2000s</tag>
+    <tag>2010s</tag>
+    <tag>gulfwar1</tag>
+    <tag>gulfwar2</tag>
+    <tag>douglas</tag>
+    <tag>northrop</tag>
+    <tag>boeing</tag>
+    <tag>hud</tag>
+    <tag>glass-cockpit</tag>
+    <tag>ifr</tag>
+    <tag>supersonic</tag>
+    <tag>retractable-gear</tag>
+    <tag>v-tail</tag>
+    <tag>tail-hook</tag>
+    <tag>refuel</tag>
+    <tag>wing-fold</tag>
+    <tag>jet</tag>
+    <tag>afterburner</tag>
+    <tag>twin-engine</tag>
+  </tags>
+ 
+  <flight-model>jsb</flight-model>
+  <aero>f18</aero>
+
+  <startup>
+   <splash-texture>Aircraft/f18/f18-splash.rgb</splash-texture>
+  </startup>
+  
+  <sound>
+   <path>Aircraft/f18/f18-sound.xml</path>
+  </sound>
+
+  <model>
+   <path>Aircraft/f18/Models/f18.xml</path>
+  </model>
+
+  <panel>
+   <visibility archive="y">false</visibility>
+  </panel>
+
+  <hud>
+   <path n="1">Aircraft/f18/f18-hud.xml</path>
+   <visibility n="1">true</visibility>
+  </hud>
+  
+  <view n="0">
+   <internal archive="y">true</internal>
+   <config>
+     <x-offset-m archive="y">0.000</x-offset-m> <!-- -0.28-->
+     <y-offset-m archive="y">0.97</y-offset-m>   <!-- 0.51-->
+     <z-offset-m archive="y">-3.4</z-offset-m>   <!-- 2.62-->
+     <pitch-offset-deg>0</pitch-offset-deg>
+   </config>
+  </view>
+
+  <chase-distance-m>-25</chase-distance-m>
+
+  <!-- turns off GA tower communications -->
+  <ATC>
+   <enabled type="bool">false</enabled>
+  </ATC>
+
+  <!-- turns off GA traffic -->
+  <ai-traffic>
+   <enabled type="bool">false</enabled>
+  </ai-traffic>
+
+ </sim>
+ 
+ <engines>
+  <engine n="0">
+    <running>true</running>
+  </engine>
+ </engines>
+ 
+</PropertyList>

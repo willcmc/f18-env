@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<!--
+F-18 Hornet Panel - 2007.02.25
+Fabrice Kauffmann, f-kauffmann@skynet.be
+http://scifi.skynetblogs.be
+_______________________________________________________________________
+-->
+
+<PropertyList>
+
+ <name>F-18 Hornet Panel</name>
+ <background>Aircraft/f18/Panels/Textures/F18Panel-00.rgb</background>
+ <multibackground>Aircraft/f18/Panels/Textures/F18Panel-00.rgb</multibackground>
+ <multibackground>Aircraft/f18/Panels/Textures/F18Panel-01.rgb</multibackground>
+ <multibackground>Aircraft/f18/Panels/Textures/F18Panel-06.rgb</multibackground>
+ <multibackground>Aircraft/f18/Panels/Textures/F18Panel-02.rgb</multibackground>
+ <multibackground>Aircraft/f18/Panels/Textures/F18Panel-07.rgb</multibackground>
+ <multibackground>Aircraft/f18/Panels/Textures/F18Panel-03.rgb</multibackground>
+ <multibackground>Aircraft/f18/Panels/Textures/F18Panel-00.rgb</multibackground>
+ <multibackground>Aircraft/f18/Panels/Textures/F18Panel-04.rgb</multibackground>
+ <w>1024</w>
+ <h>768</h>
+ <y-offset>0</y-offset>
+ <view-height>1024</view-height>
+
+</PropertyList>
