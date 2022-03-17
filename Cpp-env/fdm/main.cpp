@@ -30,24 +30,24 @@
   //10 Y location from starting point
   //11 Altitude
 
-void next_state(double* x, double* dx, float Ts, int t){
+void next_state(double* x, double* dx, float Ts, int t,double* cntl, double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
+{
   // Print states
-  for (int i = 0; i <12; i++) 
-      std::cout << x[i] << "\n";
+  double x_new[3][12];
+  for (int i = 0; i <12; i++) {
+      std::cout << dx[i] << "\n";
+      x_new[0][i] = x[i];
+      x_new[1][i] = x[i];
+      x_new[2][i] = x[i];   
+  }
     std::cout << "\n";
 
-  for(int i = 0; i<12; i++){
-    x[i] += Ts*dx[i];
-    if (std::isnan(x[i])){
-      std::cerr << "States out of bound after " << t << " timesteps (" << t*Ts << " seconds). Terminating." << "\n";
-      exit(-1);
-    }
-  }
+  rk4(x,dx,Ts,t,x_new,cntl,F18_Aerodata,ALPHA_BREAK,Geom);
 }
 
 int main()
 {
-  float Ts = 0.001;
+  float Ts = 0.001/2;
 
   FILE* fp;
   fp = fopen("states.txt", "w");
@@ -91,15 +91,17 @@ int main()
   for (int t = 0; t < 100000000; t++){
     std::cout << "t=" << t*Ts << "\n";
     Atmosphere(x, &T_atm, &p_atm, &rho, &M, &g);
-    Engine(t, Ts, x, cntl, M, g, Thrust);
 
-    Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,
-                      F18_Aerodata, g, cntl, dx, FORCES, MOMENTS, DCG);
+    //Thrust is returned via pointers
+    Engine(t, Ts, x, cntl, M, g, Thrust);  
 
-    next_state(x, dx, Ts, t);
+    //Forces, Moments and DCG is returned via pointers
+    Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,F18_Aerodata, g, cntl, dx, FORCES, MOMENTS, DCG); 
+
+    next_state(x, dx, Ts, t,cntl,F18_Aerodata, ALPHA_BREAK, Geom);
     viz.send_fg(x, cntl);
-
     fprintf(fp, "%f ", Ts*t);
+    
     for(int i=0; i<12; i++){
       fprintf(fp, "%f ", x[i]);
     }
