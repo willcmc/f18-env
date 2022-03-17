@@ -1,6 +1,5 @@
 #include "solver.h"
 #include "../Equations_of_Motion/Equations_of_Motion.h"
-#include "../Aerodata/AerodataF18.h"
 #include "../Atmosphere/Atmosphere.h"
 #include "../Engine/Engine.h"
 #include <iostream>
