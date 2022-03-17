@@ -15,8 +15,6 @@ void rk4(double* x, double* dx, float Ts, int t, double x_new[3][12], double* cn
    double DCG[3];
    double FORCES[3];
    double MOMENTS[3];
-   AerodataF18 Aero;
-   Aero.Aerodata(Geom, ALPHA_BREAK, F18_Aerodata);
    
    double T_atm;
    double p_atm; 
