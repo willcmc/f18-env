@@ -48,7 +48,7 @@ void Visualizer::launch_fg(const std::string& aircraft, const std::string& rate,
             // Constructing the command
             // UDP - Generic
             cmd << run_fg;
-            cmd << " --fg-aircraft=/home/aman/.fgfs/Aircraft/f18 ";
+            cmd << " --fg-aircraft=/home/`whoami`/.fgfs/Aircraft/f18 ";
             cmd << " --aircraft=";
             cmd << aircraft;
             cmd << " --generic=";

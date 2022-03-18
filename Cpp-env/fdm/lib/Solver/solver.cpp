@@ -22,6 +22,7 @@ void rk4(double* x, double* dx, float Ts, int t, double x_new[3][12], double* cn
   double g;
   double Thrust[2];
 
+  
   for (int i = 0; i <12; i++)
   {
     K1 = Ts*dx[i];
@@ -30,8 +31,7 @@ void rk4(double* x, double* dx, float Ts, int t, double x_new[3][12], double* cn
   }
   
   Atmosphere(x_new[0], &T_atm, &p_atm, &rho, &M, &g);
-  Engine(t, Ts/2, x_new[0], cntl, M, g, Thrust); 
-  Equations_of_Motion(x_new[0], g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom, F18_Aerodata, g, cntl, dx_new[0], FORCES, MOMENTS, DCG);
+  Equations_of_Motion(x_new[0], g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom, F18_Aerodata, rho, cntl, dx_new[0], FORCES, MOMENTS, DCG);
   
   
   for (int i = 0; i <12; i++){
@@ -42,8 +42,7 @@ void rk4(double* x, double* dx, float Ts, int t, double x_new[3][12], double* cn
   
 
   Atmosphere(x_new[1], &T_atm, &p_atm, &rho, &M, &g);
-  Engine(t, Ts/2, x_new[1], cntl, M, g, Thrust); 
-  Equations_of_Motion(x_new[1], g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom, F18_Aerodata, g, cntl, dx_new[1], FORCES, MOMENTS, DCG);
+  Equations_of_Motion(x_new[1], g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom, F18_Aerodata, rho, cntl, dx_new[1], FORCES, MOMENTS, DCG);
 
   for (int i = 0; i <12; i++){
     K3 = Ts*dx_new[1][i];
@@ -52,16 +51,17 @@ void rk4(double* x, double* dx, float Ts, int t, double x_new[3][12], double* cn
   }
 
   Atmosphere(x_new[2], &T_atm, &p_atm, &rho, &M, &g);
-  Engine(t, Ts/2, x_new[2], cntl, M, g, Thrust);
-  Equations_of_Motion(x_new[2], g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom, F18_Aerodata, g, cntl, dx_new[2], FORCES, MOMENTS, DCG);
+  Equations_of_Motion(x_new[2], g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom, F18_Aerodata, rho, cntl, dx_new[2], FORCES, MOMENTS, DCG);
 
   for (int i = 0; i <12; i++){
+    
     K4 = Ts*dx_new[2][i];
     x[i] += K4/6;
+    
     if (std::isnan(x[i])){
       std::cerr << "States out of bound after " << t << " timesteps (" << t*Ts << " seconds). Terminating." << "\n";
       exit(-1);
     }
-    
   }
+  
 }

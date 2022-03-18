@@ -96,7 +96,7 @@ int main()
     Engine(t, Ts, x, cntl, M, g, Thrust);  
 
     //Forces, Moments and DCG is returned via pointers
-    Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,F18_Aerodata, g, cntl, dx, FORCES, MOMENTS, DCG); 
+    Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,F18_Aerodata, rho, cntl, dx, FORCES, MOMENTS, DCG); 
 
     next_state(x, dx, Ts, t,cntl,F18_Aerodata, ALPHA_BREAK, Geom);
     viz.send_fg(x, cntl);
