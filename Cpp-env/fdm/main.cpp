@@ -33,21 +33,23 @@
 void next_state(double* x, double* dx, float Ts, int t,double* cntl, double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
 {
   // Print states
-  double x_new[3][12];
+  double x_new[5][12];
   for (int i = 0; i <12; i++) {
       std::cout << dx[i] << "\n";
       x_new[0][i] = x[i];
       x_new[1][i] = x[i];
-      x_new[2][i] = x[i];   
+      x_new[2][i] = x[i];  
+      x_new[3][i] = x[i];  
+      x_new[4][i] = x[i];    
   }
     std::cout << "\n";
 
-  rk4(x,dx,Ts,t,x_new,cntl,F18_Aerodata,ALPHA_BREAK,Geom);
+  rk4_fehlberg(x,dx,Ts,t,x_new,cntl,F18_Aerodata,ALPHA_BREAK,Geom);
 }
 
 int main()
 {
-  float Ts = 0.001/2;
+  float Ts = 0.001;
 
   FILE* fp;
   fp = fopen("states.txt", "w");
