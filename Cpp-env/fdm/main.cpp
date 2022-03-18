@@ -94,7 +94,7 @@ int main()
     Engine(t, Ts, x, cntl, M, g, Thrust);
 
     Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,
-                      F18_Aerodata, g, cntl, dx, FORCES, MOMENTS, DCG);
+                      F18_Aerodata, rho, cntl, dx, FORCES, MOMENTS, DCG);
 
     next_state(x, dx, Ts, t);
     viz.send_fg(x, cntl);
