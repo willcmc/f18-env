@@ -1,12 +1,12 @@
 #include "visualizer.h"
 
 Visualizer::Visualizer(std::string addr="127.0.0.1", 
-                        int port=5000, std::string protocol="generic"){
+                        int port=5000, std::string protocol="generic", bool NO_FG=false){
     this->addr = addr;
     this->port = port;
     this->protocol = protocol;
 
-    Visualizer::init();
+    if(!NO_FG) Visualizer::init();
 }
 
 int Visualizer::init(){
@@ -48,7 +48,7 @@ void Visualizer::launch_fg(const std::string& aircraft, const std::string& rate,
             // Constructing the command
             // UDP - Generic
             cmd << run_fg;
-            cmd << " --fg-aircraft=/home/willcmc/.fgfs/Aircraft/f18 ";
+            cmd << " --fg-aircraft=/home/`whoami`/.fgfs/Aircraft/f18 ";
             cmd << " --aircraft=";
             cmd << aircraft;
             cmd << " --generic=";

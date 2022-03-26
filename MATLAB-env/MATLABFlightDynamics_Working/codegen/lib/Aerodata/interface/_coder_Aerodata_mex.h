@@ -7,6 +7,7 @@
 // MATLAB Coder version            : 5.2
 // C/C++ source code generated on  : 24-Feb-2022 03:23:51
 //
+ * Code generation for function 'Aerodata'
 
 #ifndef _CODER_AERODATA_MEX_H
 #define _CODER_AERODATA_MEX_H

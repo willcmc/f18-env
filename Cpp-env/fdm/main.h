@@ -12,7 +12,7 @@
 #include "./lib/Engine/Engine.h"
 #include "./lib/Equations_of_Motion/Equations_of_Motion.h"
 #include "../fg/visualizer.h"
-
+#include "./lib/Solver/solver.h"
 
 
 #endif
