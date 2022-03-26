@@ -115,11 +115,8 @@ int main(int argc, char *argv[]){
     float js_pitch =  jst.get_input(4); // pull back is +ve
     float js_roll =  jst.get_input(3); // 
 
-    std::cout << js_pitch << '\n';
-
     cntl[0] = -js_pitch*0.4 - 0.1;
     cntl[1] = -js_pitch*0.4 - 0.1;
-
     cntl[2] = js_roll*0.4;
 
     //Thrust is returned via pointers
