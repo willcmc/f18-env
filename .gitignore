@@ -3,6 +3,7 @@
 /REF
 /.vscode
 /Cpp-env/build
+/Cpp-env/states.txt
 /MATLAB-env/MATLABFlightDynamics_Working/codegen
 
 ## C++
