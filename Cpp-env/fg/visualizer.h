@@ -7,6 +7,7 @@
 #include <memory>
 #include <string.h>
 #include "UDPConnect.h"
+#include <cmath>
 
 
 #pragma pack(push, 1)

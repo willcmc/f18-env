@@ -86,11 +86,11 @@ int main(int argc, char *argv[]){
   double Thrust[2] = {0, 0};
 
   // Initial states
-  double x[12] = {200, 0.075, 0, -5.3*0.00001, 0, 0.075, 0, 0, 0, 18.5, 0.1, 2000};
+  double x[12] = {200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2000};
 
   // Initial control
-  float delta_e = -0.2;
-  double cntl[10] = {delta_e, delta_e, 0, 0, 5, 5, 0, 0, 0, 0};
+  float delta_e = 0;
+  double cntl[10] = {delta_e, delta_e, 0.1, 0, 10, 10, 0, 0, 0, 0};
 
   // Get aerodynamic data
   Aero.Aerodata(Geom, ALPHA_BREAK, F18_Aerodata);
