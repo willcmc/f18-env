@@ -35,7 +35,7 @@ void next_state(double* x, double* dx, float Ts, int t,double* cntl, double* F18
   // Print states
   double x_new[5][12];
   for (int i = 0; i <12; i++) {
-      std::cout << dx[i] << "\n";
+      std::cout << x[i] << "\n";
       x_new[0][i] = x[i];
       x_new[1][i] = x[i];
       x_new[2][i] = x[i];  
@@ -89,8 +89,8 @@ int main(int argc, char *argv[]){
   double x[12] = {200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2000};
 
   // Initial control
-  float delta_e = 0;
-  double cntl[10] = {delta_e, delta_e, 0.1, 0, 10, 10, 0, 0, 0, 0};
+  float delta_e = -0.2;
+  double cntl[10] = {delta_e, delta_e, 0, 0, 5, 5, 0, 0, 0, 0};
 
   // Get aerodynamic data
   Aero.Aerodata(Geom, ALPHA_BREAK, F18_Aerodata);
@@ -112,6 +112,8 @@ int main(int argc, char *argv[]){
 
     //Thrust is returned via pointers
     Engine(t, Ts, x, cntl, M, g, Thrust);  
+
+    // std::cout << Thrust[0] << " " << Thrust[1] << "\n";
 
     //Forces, Moments and DCG is returned via pointers
     Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,F18_Aerodata, rho, cntl, dx, FORCES, MOMENTS, DCG); 
