@@ -1,0 +1,28 @@
+name: C/C++ CI
+defaults: 
+  run:
+    shell: bash
+    working-directory: Cpp-env
+
+on:
+  schedule:
+  - cron: "0 2 * * 1-5"
+  push:
+    branches: 
+      - master
+      - experimental-branch
+  pull_request:
+    branches:
+      - master
+      - experimental-branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: make
+      run: make
+    - name: make check
+      run: make check
