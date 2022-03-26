@@ -1,5 +1,9 @@
 name: C/C++ CI
-
+defaults: 
+  run:
+    shell: bash
+    working-directory: Cpp-env
+  
 on:
   schedule:
   - cron: "0 2 * * 1-5"
