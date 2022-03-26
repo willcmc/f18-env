@@ -47,8 +47,22 @@ void next_state(double* x, double* dx, float Ts, int t,double* cntl, double* F18
   rk4_fehlberg(x,dx,Ts,t,x_new,cntl,F18_Aerodata,ALPHA_BREAK,Geom);
 }
 
-int main()
-{
+int main(int argc, char *argv[]){
+  /*
+  Run using -ci to test build.
+  */
+
+  bool isTest = false;
+
+  // CMD LINE PARSER
+  for(int i = 1; i < argc; i++){
+    std::string arg (argv[i]);
+    std::string check ("-ci");
+    if (arg.compare(check) == 0){
+      isTest = true;
+    }
+  }
+
   float Ts = 0.001;
 
   FILE* fp;
@@ -88,9 +102,11 @@ int main()
   double MOMENTS[3];
 
   // Construct Visualizer object
-  Visualizer viz("127.0.0.1", 5000, "generic");  
+  Visualizer viz("127.0.0.1", 5000, "generic", isTest);  
 
   for (int t = 0; t < 100000000; t++){
+    if(isTest) break;
+    
     std::cout << "t=" << t*Ts << "\n";
     Atmosphere(x, &T_atm, &p_atm, &rho, &M, &g);
 

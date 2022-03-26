@@ -28,6 +28,10 @@ $(FDM_EXT): build $(BUILD_DIR)/main.o $(BUILD_DEPENDS)
 	@echo 'Building and linking final files.'
 	@$(CXX) $(BUILD_DIR)/main.o $(BUILD_DEPENDS) -o $(FDM_EXT)
 
+check:
+	@$(FDM_EXT) -ci
+	@echo 'Build check passed.'
+
 clean:
 	@rm -rf $(BUILD_DIR)
 	@echo 'Cleared build folder.'

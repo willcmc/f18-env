@@ -46,7 +46,7 @@ class Visualizer{
                         const std::string& server, const std::string& port, 
                         const std::string& protocol);
     public:
-        Visualizer(std::string addr, int port, std::string protocol);
+        Visualizer(std::string addr, int port, std::string protocol, bool NO_FG);
         int send_fg(const double* x, const double* cntl);
         std::string cmd_exec(const char* cmd);
 };
