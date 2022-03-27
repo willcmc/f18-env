@@ -7,6 +7,8 @@
 #include <fstream>
 #include <iostream>
 #include <stdio.h>
+#include <chrono>
+#include <thread>
 #include "./lib/Aerodata/AerodataF18.h"
 #include "./lib/Atmosphere/Atmosphere.h"
 #include "./lib/Engine/Engine.h"

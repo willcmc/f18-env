@@ -71,8 +71,8 @@ void Visualizer::launch_fg(const std::string& aircraft, const std::string& rate,
 
 int Visualizer::send_fg(const double* x, const double* cntl){
     this->pkt.v     = x[0];
-    this->pkt.alpha = x[1]*180/M_PI;
-    this->pkt.beta  = x[2]*180/M_PI;
+    this->pkt.alpha = x[1]*180;
+    this->pkt.beta  = x[2]*180;
     this->pkt.p     = x[3]*180/M_PI;
     this->pkt.q     = x[4]*180/M_PI;
     this->pkt.r     = x[5]*180/M_PI;

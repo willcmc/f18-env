@@ -2,6 +2,8 @@
 
 #include "main.h"
 
+const float RT_FACTOR = 5;
+
 // Controls
   //0  Stabilator deflection Right
   //1  Stabilator deflection Left
@@ -63,7 +65,7 @@ int main(int argc, char *argv[]){
     }
   }
 
-  float Ts = 0.001;
+  float Ts = 0.01;
 
   FILE* fp;
   fp = fopen("states.txt", "w");
@@ -86,11 +88,11 @@ int main(int argc, char *argv[]){
   double Thrust[2] = {0, 0};
 
   // Initial states
-  double x[12] = {100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2000};
+  double x[12] = {100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10000};
 
   // Initial control
   float delta_e = -0.1;
-  double cntl[10] = {delta_e, delta_e, 0, 0, 5, 5, 0, 0, 0, 0};
+  double cntl[10] = {delta_e, delta_e, 0, 0, 7, 7, 0, 0, 0, 0};
 
   // Get aerodynamic data
   Aero.Aerodata(Geom, ALPHA_BREAK, F18_Aerodata);
@@ -108,15 +110,15 @@ int main(int argc, char *argv[]){
   for (int t = 0; t < 100000000; t++){
     if(isTest) break;
     
-    std::cout << "t=" << t*Ts << "\n";
+    std::cout << "t=" << t*Ts << "\r";
     Atmosphere(x, &T_atm, &p_atm, &rho, &M, &g);
 
     // Joystick
     float js_pitch =  jst.get_input(4); // pull back is +ve
     float js_roll =  jst.get_input(3); // 
 
-    cntl[0] = -js_pitch*0.4 - 0.1;
-    cntl[1] = -js_pitch*0.4 - 0.1;
+    cntl[0] = -js_pitch*0.4 - 0.1 - js_roll*0.2;
+    cntl[1] = -js_pitch*0.4 - 0.1 + js_roll*0.2;
     cntl[2] = js_roll*0.4;
 
     //Thrust is returned via pointers
@@ -135,6 +137,7 @@ int main(int argc, char *argv[]){
       fprintf(fp, "%f ", x[i]);
     }
     fprintf(fp, "\n");
+    std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(Ts*1000/RT_FACTOR)));
   }
   
   fclose(fp);
