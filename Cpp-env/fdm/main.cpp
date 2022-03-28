@@ -2,7 +2,7 @@
 
 #include "main.h"
 
-const float RT_FACTOR = 5;
+const float RT_FACTOR = 1;
 
 // Controls
   //0  Stabilator deflection Right
@@ -114,12 +114,7 @@ int main(int argc, char *argv[]){
     Atmosphere(x, &T_atm, &p_atm, &rho, &M, &g);
 
     // Joystick
-    float js_pitch =  jst.get_input(4); // pull back is +ve
-    float js_roll =  jst.get_input(3); // 
-
-    cntl[0] = -js_pitch*0.4 - 0.1 - js_roll*0.2;
-    cntl[1] = -js_pitch*0.4 - 0.1 + js_roll*0.2;
-    cntl[2] = js_roll*0.4;
+    jst.update(cntl);
 
     //Thrust is returned via pointers
     Engine(t, Ts, x, cntl, M, g, Thrust);  

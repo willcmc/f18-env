@@ -1,7 +1,8 @@
 #ifndef XBOX_H
 #define XBOX_H
 
-#include <stdio.h>
+#include <iostream>
+#include <vector>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -24,9 +25,11 @@ class xbox{
     private:
         int fd;
         struct js_event e;
+        std::vector<float> last;
     public:
         xbox();
         float get_input(int axis);
+        void update(double* cntl);
 };
 
 #endif
