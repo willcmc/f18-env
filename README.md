@@ -25,7 +25,7 @@ In case your installation and home directories are different (due to building fr
 Install the F-18 Addon (bundled in /Installs) by running the following in the top-level directory
 ```
 cd Installs/
-cp -R f-18 $FG_HOME/Aircraft
+cp -R f18 $FG_HOME/Aircraft
 ```
 The generic communication protocol for FlightGear provides a powerful way of adding a simple ASCII based or binary input/output protocol, just by defining an XML encoded configuration file and placing it in the `$FG_ROOT/Protocol/` directory.
 
@@ -38,6 +38,6 @@ sudo cp f18-env/Cpp-env/fg/generic.xml $FG_ROOT/Protocol/
 Make sure you are able to run FlightGear as a non-sudo user on the command line by trying `fgfs`.
 
 The cpp codes are linked and built using a Makefile. Build the simulator using `make`.
-The main executable (currently) is ./build/fdm, so the main code can be executed using `./build/fdm` while in the top-level folder.
+The main executable (currently) is ./build/fdm, so the main code can be executed using `./build/fdm` while in the Cpp-env folder.
 
 William E. Retnaraj
