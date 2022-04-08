@@ -32,7 +32,7 @@ const float RT_FACTOR = 1;
   //10 Y location from starting point
   //11 Altitude
 
-void next_state(double* x, double* dx, float Ts, int t,double* cntl, double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
+void next_state(double* x, double* x_noise, double* dx, float Ts, int t,double* cntl, double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
 {
   // Print states
   double x_new[5][12];
@@ -46,7 +46,7 @@ void next_state(double* x, double* dx, float Ts, int t,double* cntl, double* F18
   }
     // std::cout << "\n";
 
-  rk4_fehlberg(x,dx,Ts,t,x_new,cntl,F18_Aerodata,ALPHA_BREAK,Geom);
+  rk4_fehlberg(x, x_noise, dx,Ts,t,x_new,cntl,F18_Aerodata,ALPHA_BREAK,Geom);
 }
 
 int main(int argc, char *argv[]){
@@ -70,6 +70,7 @@ int main(int argc, char *argv[]){
   FILE* fp;
   fp = fopen("states.txt", "w");
 
+
   AerodataF18 Aero;
 
   // Aerodynamic data vars
@@ -89,6 +90,8 @@ int main(int argc, char *argv[]){
 
   // Initial states
   double x[12] = {100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10000};
+  double x_noise[12];
+  
 
   // Initial control
   float delta_e = -0.1;
@@ -124,12 +127,15 @@ int main(int argc, char *argv[]){
     //Forces, Moments and DCG is returned via pointers
     Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,F18_Aerodata, rho, cntl, dx, FORCES, MOMENTS, DCG); 
 
-    next_state(x, dx, Ts, t,cntl,F18_Aerodata, ALPHA_BREAK, Geom);
+    next_state(x, x_noise, dx, Ts, t,cntl,F18_Aerodata, ALPHA_BREAK, Geom);
     viz.send_fg(x, cntl);
     fprintf(fp, "%f ", Ts*t);
     
-    for(int i=0; i<12; i++){
-      fprintf(fp, "%f ", x[i]);
+    for(int i=0; i<24; i++){
+      if(i<12)
+      fprintf(fp,"%f ", x[i]);
+      else
+      fprintf(fp,"%f ", x_noise[i-12]);
     }
     fprintf(fp, "\n");
     std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(Ts*1000/RT_FACTOR)));
