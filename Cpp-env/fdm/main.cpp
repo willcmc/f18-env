@@ -1,7 +1,6 @@
 // Include Files
 
 #include "main.h"
-
 const float RT_FACTOR = 1;
 
 // Controls
@@ -32,7 +31,7 @@ const float RT_FACTOR = 1;
   //10 Y location from starting point
   //11 Altitude
 
-void next_state(double* x, double* x_noise, double* dx, float Ts, int t,double* cntl, double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
+void next_state(double* x, double* dx, float Ts, int t,double* cntl, double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
 {
   // Print states
   double x_new[5][12];
@@ -46,7 +45,7 @@ void next_state(double* x, double* x_noise, double* dx, float Ts, int t,double* 
   }
     // std::cout << "\n";
 
-  rk4_fehlberg(x, x_noise, dx,Ts,t,x_new,cntl,F18_Aerodata,ALPHA_BREAK,Geom);
+  rk4_fehlberg(x,dx,Ts,t,x_new,cntl,F18_Aerodata,ALPHA_BREAK,Geom);
 }
 
 int main(int argc, char *argv[]){
@@ -117,7 +116,7 @@ int main(int argc, char *argv[]){
     Atmosphere(x, &T_atm, &p_atm, &rho, &M, &g);
 
     // Joystick
-    jst.update(cntl);
+    // jst.update(cntl);
 
     //Thrust is returned via pointers
     Engine(t, Ts, x, cntl, M, g, Thrust);  
@@ -127,7 +126,8 @@ int main(int argc, char *argv[]){
     //Forces, Moments and DCG is returned via pointers
     Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,F18_Aerodata, rho, cntl, dx, FORCES, MOMENTS, DCG); 
 
-    next_state(x, x_noise, dx, Ts, t,cntl,F18_Aerodata, ALPHA_BREAK, Geom);
+    next_state(x, dx, Ts, t,cntl,F18_Aerodata, ALPHA_BREAK, Geom);
+    add_gauss_noise(x,x_noise,1,0,1,4);
     viz.send_fg(x, cntl);
     fprintf(fp, "%f ", Ts*t);
     

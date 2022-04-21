@@ -2,11 +2,10 @@
 #include "../Equations_of_Motion/Equations_of_Motion.h"
 #include "../Atmosphere/Atmosphere.h"
 #include "../Engine/Engine.h"
-#include "../Gauss_Noise_Model/Gauss_Noise_Model.h"
 #include <iostream>
 #include <math.h>
 
-void rk4(double* x, double* x_noise, double* dx, float Ts, int t, double x_new[3][12], double* cntl,double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
+void rk4(double* x, double* dx, float Ts, int t, double x_new[3][12], double* cntl,double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
 {
   double dx_new[3][12];
   float K1,K2,K3,K4;
@@ -67,12 +66,11 @@ void rk4(double* x, double* x_noise, double* dx, float Ts, int t, double x_new[3
       exit(-1);
     }
   }
-  for (int i=0 ;i<12;i++)
-  x_noise[i] = x[i] - gauss_noise(1,0,1)/4;
+  
 }
 
 
-void rk4_fehlberg(double* x, double* x_noise, double* dx, float Ts, int t, double x_new[3][12], double* cntl,double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
+void rk4_fehlberg(double* x, double* dx, float Ts, int t, double x_new[3][12], double* cntl,double* F18_Aerodata,double* ALPHA_BREAK, double* Geom)
 {
   double dx_new[5][12];
   double K1[12],K2[12],K3[12],K4[12],K5[12],K6;
@@ -154,7 +152,4 @@ void rk4_fehlberg(double* x, double* x_noise, double* dx, float Ts, int t, doubl
       exit(-1);
     }
   }
-
-  for (int i=0 ;i<12;i++)
-  x_noise[i] = x[i] - gauss_noise(1,0,1)/4;
 }

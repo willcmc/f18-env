@@ -16,5 +16,6 @@
 #include "../fg/visualizer.h"
 #include "./lib/Solver/solver.h"
 #include "../input/xbox.h"
+#include "./lib/Gauss_Noise_Model/Gauss_Noise_Model.h"
 
 #endif
