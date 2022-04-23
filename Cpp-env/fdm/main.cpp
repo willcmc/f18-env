@@ -88,7 +88,7 @@ int main(int argc, char *argv[]){
   double Thrust[2] = {0, 0};
 
   // Initial states
-  double x[12] = {100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10000};
+  double x[12] = {100, 0.3, 0, 0, 0, 0, 0, 0.3, 0, 0, 0, 10000};
 
   // Initial control
   float delta_e = -0.1;
