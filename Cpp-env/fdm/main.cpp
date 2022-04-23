@@ -1,7 +1,6 @@
 // Include Files
 
 #include "main.h"
-
 const float RT_FACTOR = 1;
 
 // Controls
@@ -70,6 +69,7 @@ int main(int argc, char *argv[]){
   FILE* fp;
   fp = fopen("states.txt", "w");
 
+
   AerodataF18 Aero;
 
   // Aerodynamic data vars
@@ -89,6 +89,8 @@ int main(int argc, char *argv[]){
 
   // Initial states
   double x[12] = {100, 0.3, 0, 0, 0, 0, 0, 0.3, 0, 0, 0, 10000};
+  double x_noise[12];
+  
 
   // Initial control
   float delta_e = -0.1;
@@ -114,7 +116,7 @@ int main(int argc, char *argv[]){
     Atmosphere(x, &T_atm, &p_atm, &rho, &M, &g);
 
     // Joystick
-    jst.update(cntl);
+    // jst.update(cntl);
 
     //Thrust is returned via pointers
     Engine(t, Ts, x, cntl, M, g, Thrust);  
@@ -125,11 +127,15 @@ int main(int argc, char *argv[]){
     Equations_of_Motion(x, g, ALPHA_BREAK, F18_Aerodata, Thrust, Geom, Geom,F18_Aerodata, rho, cntl, dx, FORCES, MOMENTS, DCG); 
 
     next_state(x, dx, Ts, t,cntl,F18_Aerodata, ALPHA_BREAK, Geom);
+    add_gauss_noise(x,x_noise,1,0,1,4);
     viz.send_fg(x, cntl);
     fprintf(fp, "%f ", Ts*t);
     
-    for(int i=0; i<12; i++){
-      fprintf(fp, "%f ", x[i]);
+    for(int i=0; i<24; i++){
+      if(i<12)
+      fprintf(fp,"%f ", x[i]);
+      else
+      fprintf(fp,"%f ", x_noise[i-12]);
     }
     fprintf(fp, "\n");
     std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(Ts*1000/RT_FACTOR)));

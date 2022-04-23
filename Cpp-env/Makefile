@@ -2,7 +2,7 @@ BUILD_DIR = build
 FDM_EXT = $(BUILD_DIR)/fdm
 VIZ_EXT = $(BUILD_DIR)/viz
 
-VPATH = fdm/lib/Solver:fdm/lib/Aerodata:fdm/lib/Atmosphere:fdm/lib/Engine:fdm/lib/Equations_of_Motion:fg:fdm:input
+VPATH = fdm/lib/Solver:fdm/lib/Aerodata:fdm/lib/Atmosphere:fdm/lib/Engine:fdm/lib/Equations_of_Motion:fg:fdm:input:fdm/lib/Gauss_Noise_Model
 
 BUILD_DEPENDS  = $(BUILD_DIR)/AerodataF18.o $(BUILD_DIR)/Atmosphere.o
 BUILD_DEPENDS += $(BUILD_DIR)/Engine.o $(BUILD_DIR)/Engine_initialize.o 
@@ -13,6 +13,7 @@ BUILD_DEPENDS += $(BUILD_DIR)/Equations_of_Motion.o $(BUILD_DIR)/xbox.o
 BUILD_DEPENDS += $(BUILD_DIR)/Equations_of_Motion_data.o
 BUILD_DEPENDS += $(BUILD_DIR)/Equations_of_Motion_initialize.o
 BUILD_DEPENDS += $(BUILD_DIR)/interp1.o $(BUILD_DIR)/solver.o
+BUILD_DEPENDS += $(BUILD_DIR)/Gauss_Noise_Model.o
 
 all: build $(FDM_EXT)
 

@@ -151,6 +151,5 @@ void rk4_fehlberg(double* x, double* dx, float Ts, int t, double x_new[3][12], d
       std::cerr << "States out of bound after " << t << " timesteps (" << t*Ts << " seconds). Terminating." << "\n";
       exit(-1);
     }
-
   }
 }
