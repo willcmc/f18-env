@@ -17,5 +17,22 @@ double gauss_noise(double std_dev, double mean_val, double amplitude)
 void add_gauss_noise(double* x, double* x_noise, double std_dev, double mean_val, double amplitude,double div_factor)
 {
     for (int i=0 ;i<12;i++)
+    {
+    
+    if (i==1)
+    x_noise[i] = x[i] - gauss_noise(std_dev,mean_val,amplitude)/(div_factor*240);
+
+    if (i==2)
+    x_noise[i] = x[i] - gauss_noise(std_dev,mean_val,amplitude)/(div_factor*60);
+
+    if (i==3)
+    x_noise[i] = x[i] - gauss_noise(std_dev,mean_val,amplitude)/(div_factor*60);
+
+    if (i==4)
+    x_noise[i] = x[i] - gauss_noise(std_dev,mean_val,amplitude)/(div_factor*200);
+    
+    else
     x_noise[i] = x[i] - gauss_noise(std_dev,mean_val,amplitude)/div_factor;
+    
+    }
 }
