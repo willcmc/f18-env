@@ -12,7 +12,7 @@
 #define EQUATIONS_OF_MOTION_H
 
 // Include Files
-#include "../rtwtypes.h"
+#include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
 

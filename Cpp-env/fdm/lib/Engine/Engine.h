@@ -2,7 +2,7 @@
 #define ENGINE_H
 
 // Include Files
-#include "../rtwtypes.h"
+#include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
 

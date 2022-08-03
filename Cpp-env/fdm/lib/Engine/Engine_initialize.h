@@ -12,7 +12,7 @@
 #define ENGINE_INITIALIZE_H
 
 // Include Files
-#include "../rtwtypes.h"
+#include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
 

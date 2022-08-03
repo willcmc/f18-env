@@ -12,7 +12,7 @@
 #define RT_NONFINITE_H
 
 // Include Files
-#include "../rtwtypes.h"
+#include "rtwtypes.h"
 
 #ifdef __cplusplus
 extern "C" {
