@@ -62,8 +62,8 @@ add_single_package(${FG_PATH} fg)
 #########################################################################
 # fdm executable
 add_executable(fdm_ext ${MAIN_CPP_PATH}/main.cpp)
-target_include_directories(fdm_ext PUBLIC ${PROJECT_BINARY_DIR} ${EXTRA_INCLUDES} ${LIBS_PATH} ${INPUT_PATH} ${FG_PATH})
-target_link_libraries(fdm_ext PUBLIC ${EXTRA_LIBS} fg input)
+target_include_directories(fdm_ext PUBLIC ${PROJECT_BINARY_DIR} ${EXTRA_INCLUDES})
+target_link_libraries(fdm_ext PUBLIC ${EXTRA_LIBS})
 
 #########################################################################
 #########################################################################
